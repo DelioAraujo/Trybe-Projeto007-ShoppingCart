@@ -124,11 +124,16 @@ export const createProductElement = ({ id, title, thumbnail, price }) => {
   );
   section.appendChild(cartButton);
 
-  cartButton.addEventListener('click', () => {
+  // adiciona um escutador de eventos ao elemento button
+  cartButton.addEventListener('click', async () => {
+    // usa o id fornecido como parametro e aplica na função para salvar o id no localStorage
     saveCartID(id);
-    const infosElement = fetchProduct(id);
+    // usa o id fornecido como parametro na função fetchProduct para conseguir as informações do produto e salva em uma variável.
+    const infosElement = await fetchProduct(id);
+    // coloca a variável criada acima na função que cria os elementos html do produto
     const novoElementoDoCarrinho = createCartProductElement(infosElement);
-    const carrinho = document.querySelector('.cart_products');
+    // adiciona, como filhos, os elementos criados ao elemento do carrinho
+    const carrinho = document.querySelector('.cart__products');
     carrinho.appendChild(novoElementoDoCarrinho);
   });
 
