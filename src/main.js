@@ -22,7 +22,6 @@ try {
     carrinho.appendChild(elemento);
   });
 
-
   // remove o aviso de carregando
   carregando.remove();
 } catch (erro) {
@@ -37,4 +36,3 @@ try {
   const carrinho = document.querySelector('.products');
   carrinho.appendChild(mensagemDeErro);
 }
-
