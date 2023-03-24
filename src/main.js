@@ -1,7 +1,8 @@
 import { searchCep } from './helpers/cepFunctions';
 import './style.css';
-import { fetchProductsList } from './helpers/fetchFunctions';
-import { createProductElement } from './helpers/shopFunctions';
+import { fetchProduct, fetchProductsList } from './helpers/fetchFunctions';
+import { createCartProductElement, createProductElement } from './helpers/shopFunctions';
+import { getSavedCartIDs } from './helpers/cartFunctions';
 
 try {
   // definine a constante carrinho como sendo o elemento com classe ".products"
@@ -36,3 +37,17 @@ try {
   const carrinho = document.querySelector('.products');
   carrinho.appendChild(mensagemDeErro);
 }
+
+const recuperaCarrinho = async () => {
+  // recupera a lista do localStorage
+  const carrRecuperado = getSavedCartIDs();
+  // faz um map e cria um novo array de produtos usando a função fetchProduct e os ids recuperados
+  const idsList = await Promise.all(carrRecuperado.map((item) => fetchProduct(item)));
+  // recupera o elemento do carrinho
+  const carrinhoRecuperado = document.querySelector('.cart__products');
+  // para cada id recuperado é aplicada a função que cria um novo elemento pro carrinho e é feito um appendchild para adicionar o elemento efetivamente
+  idsList.forEach((produto) => carrinhoRecuperado
+    .appendChild(createCartProductElement(produto)));
+};
+// executa a função
+recuperaCarrinho();
