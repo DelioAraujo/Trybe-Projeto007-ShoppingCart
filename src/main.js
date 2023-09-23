@@ -1,4 +1,4 @@
-import { searchCep } from './helpers/cepFunctions';
+// import { searchCep } from './helpers/cepFunctions';
 import './style.css';
 import { fetchProduct, fetchProductsList } from './helpers/fetchFunctions';
 import { createCartProductElement, createProductElement } from './helpers/shopFunctions';
@@ -46,8 +46,9 @@ const recuperaCarrinho = async () => {
   // recupera o elemento do carrinho
   const carrinhoRecuperado = document.querySelector('.cart__products');
   // para cada id recuperado é aplicada a função que cria um novo elemento pro carrinho e é feito um appendchild para adicionar o elemento efetivamente
-  idsList.forEach((produto) => carrinhoRecuperado
-    .appendChild(createCartProductElement(produto)));
+  idsList.forEach((produto) => {
+    carrinhoRecuperado.appendChild(createCartProductElement(produto));
+  });
 };
 // executa a função
 recuperaCarrinho();
